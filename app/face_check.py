@@ -5,7 +5,7 @@ import glob
 
 def check_person(input_image_path: str) -> str | None:
     def _check(img2):
-        result = DeepFace.verify(img1_path=input_image_path, img2_path=img2, threshold=0.7)
+        result = DeepFace.verify(img1_path=input_image_path, img2_path=img2, threshold=0.7,model_name='Facenet')
         result['path'] = img2
         return result
 
