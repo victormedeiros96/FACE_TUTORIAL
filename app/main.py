@@ -16,10 +16,11 @@ async def verify_face(file: UploadFile = File(...)):
     temp_file = temp_dir / f"{uuid.uuid4()}.jpg"
     with temp_file.open("wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
-    
-    person = check_person(str(temp_file))
-    temp_file.unlink()  # remove imagem temporária após o uso
-    
+    try:
+        person = check_person(str(temp_file))
+        temp_file.unlink()  # remove imagem temporária após o uso
+    except:
+        person = None 
     if person:
         return JSONResponse(content={"match": True, "person": person})
     else:
